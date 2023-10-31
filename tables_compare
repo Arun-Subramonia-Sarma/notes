@@ -1,0 +1,52 @@
+select now(),timezone('UTC'::text, now())
+
+select table_name, column_name, data_type, column_default,is_nullable  , character_maximum_length , numeric_precision , numeric_scale, datetime_precision 
+from information_schema.columns 
+where table_schema='public'  
+	and table_name not like '%default' 
+	and table_name not like '%partition%'
+	and table_name not like 'aws%'
+	and table_name not in (
+							'alembic_version',
+							'databasechangelog',
+							'databasechangeloglock',
+							'filter_values',
+							'pg_buffercache',
+							'trailer_history_copy_failure',
+							'trailer_history_tmp',
+							'trailer_live_replication_failure',
+							'trailer_status_intermediate_log',
+							'trailer_status_intermediate_logs_failure',
+							'trailer_status_live_replication_failure',
+							'trailers_copy_failure',
+							'trailers_intermediate_logs',
+							'trailers_intermediate_logs_failure',
+							'trailer_status_live_replication_failure',
+							'trailers_v2_tmp'
+						)
+order by 
+	table_name, 
+	ordinal_position;
+
+
+select * 
+from information_schema.columns
+where table_schema='public'  
+	and table_name not like '%default' 
+	and table_name not like '%partition%'
+	and table_name in ( 
+							'filter_values',
+							'map_updates',
+							'move_request_queues',
+							'site_map_regions',
+							'site_map_info',
+							'site_maps'
+						);
+select * 
+from information_schema.columns
+where table_schema='public'  
+	and table_name not like '%default' 
+	and table_name not like '%partition%'
+	and table_name in ( 
+						'filter_values'
+						);
